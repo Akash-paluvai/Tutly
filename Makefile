@@ -29,18 +29,15 @@ check-db:
 	fi
 
 services:
-	mkdir -p data/localstack
 	docker compose -f docker-compose.local.yml up -d
-	@echo "Waiting for Localstack to be ready..."
-	@while ! docker compose -f docker-compose.local.yml exec -T localstack awslocal s3 ls >/dev/null 2>&1; do \
-		echo "Waiting for Localstack..."; \
-		sleep 3; \
+	@echo "Waiting for MinIO to be ready..."
+	@until docker compose -f docker-compose.local.yml exec -T minio mc ready local >/dev/null 2>&1; do \
+		echo "Waiting for MinIO..."; \
+		sleep 2; \
 	done
-	@echo "Localstack is ready!"
-	docker compose -f docker-compose.local.yml exec -T localstack awslocal s3 mb s3://tutly-local || true
-	docker compose -f docker-compose.local.yml exec -T localstack awslocal s3api put-bucket-acl --bucket tutly-local --acl public-read
+	@echo "MinIO is ready!"
 	@echo "Waiting for PostgreSQL to be ready..."
-	@until docker compose -f docker-compose.local.yml exec -T db pg_isready; do \
+	@until docker compose -f docker-compose.local.yml exec -T db pg_isready -U postgres >/dev/null 2>&1; do \
 		echo "Waiting for PostgreSQL..."; \
 		sleep 2; \
 	done
@@ -51,7 +48,6 @@ services-down:
 
 clean:
 	docker compose -f docker-compose.local.yml down -v
-	rm -rf data/localstack
 	rm -f .env
 
 init:
@@ -59,7 +55,6 @@ init:
 	cp .env.example .env
 	@echo "Installing dependencies..."
 	pnpm install
-	mkdir -p data/localstack
 	@echo "Setting up services..."
 	make services
 	@echo "Setting up database..."
