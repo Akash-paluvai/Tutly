@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenge 001 — Product Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-content">
+        <div class="brand">
+          <span class="badge">Challenge 001</span>
+          <h1>Product Management System</h1>
+        </div>
+        <p class="subtitle">Proof-of-Runner Full-Stack Interactive Workspace</p>
+      </div>
+      <div class="api-status" id="apiStatus">
+        <span class="status-indicator"></span>
+        <span>API Online</span>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <!-- Left Column: Add Product Form -->
+      <section class="card form-card">
+        <div class="card-header">
+          <h2>Add New Product</h2>
+          <p class="card-subtitle">Test validation and creation logic</p>
+        </div>
+
+        <form id="productForm">
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input 
+              type="text" 
+              id="productName" 
+              name="name" 
+              placeholder="e.g. Mechanical Keyboard" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="productPrice">Price ($)</label>
+            <input 
+              type="number" 
+              id="productPrice" 
+              name="price" 
+              placeholder="e.g. 99.99" 
+              step="0.01" 
+              min="0" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="productTags">Tags</label>
+            <input 
+              type="text" 
+              id="productTags" 
+              name="tags" 
+              placeholder="Comma-separated (min 3) e.g. gaming, hardware, accessories" 
+              required
+            >
+            <span class="form-hint">Rule: Must be at least 3 comma-separated tags.</span>
+          </div>
+
+          <div id="formFeedback" class="feedback-banner hidden"></div>
+
+          <button type="submit" id="submitBtn" class="btn btn-primary">
+            <span>Create Product</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Right Column: Product List -->
+      <section class="card list-card">
+        <div class="card-header list-header">
+          <div>
+            <h2>Active Inventory</h2>
+            <p class="card-subtitle"><span id="productCount">0</span> items loaded</p>
+          </div>
+          <button id="refreshBtn" class="btn btn-secondary" title="Refresh products">
+            ↻ Refresh
+          </button>
+        </div>
+
+        <div id="productsGrid" class="products-grid">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

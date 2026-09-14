@@ -1,0 +1,24 @@
+{
+  "name": "challenge-001",
+  "version": "1.0.0",
+  "description": "Tutly Challenge 001 - Fix Product Management",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "jest tests/product.visible.test.js",
+    "test:visible": "jest tests/product.visible.test.js",
+    "test:hidden": "jest __hidden__/product.hidden.test.js",
+    "test:all": "jest"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true
+  }
+}

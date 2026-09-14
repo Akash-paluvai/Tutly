@@ -1,0 +1,11 @@
+{
+  "id": "challenge-001",
+  "title": "Fix Product Management API",
+  "language": "node",
+  "runtime": "tutly/node-runner:22",
+  "commands": {
+    "install": "npm install --no-audit --no-fund",
+    "testVisible": "npm test",
+    "testHidden": "npm run test:all"
+  }
+}
