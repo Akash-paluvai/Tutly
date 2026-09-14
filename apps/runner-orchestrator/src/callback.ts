@@ -59,8 +59,14 @@ export type RunFetchResult = {
     };
     assignment: {
       id: string;
+      submissionMode?: string | null;
+      challengeId?: string | null;
       sandboxTemplate: string | null;
       hiddenTestFiles: Record<string, string> | null;
+      workspaceConfig?: {
+        framework?: string | null;
+        testCommand?: string | null;
+      } | null;
     };
   };
 };
