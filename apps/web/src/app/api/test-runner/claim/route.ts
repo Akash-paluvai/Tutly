@@ -51,7 +51,19 @@ export async function POST(req: NextRequest) {
       submissionId: true,
       assignmentId: true,
       submission: { select: { id: true, attachmentId: true } },
-      assignment: { select: locatorSelect },
+      assignment: {
+        select: {
+          ...locatorSelect,
+          submissionMode: true,
+          hiddenTestFiles: true,
+          workspaceConfig: {
+            select: {
+              framework: true,
+              testCommand: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -84,6 +96,11 @@ export async function POST(req: NextRequest) {
       },
       assignment: {
         id: run.assignment.id,
+        submissionMode: run.assignment.submissionMode,
+        hiddenTestFiles:
+          (run.assignment.hiddenTestFiles as Record<string, string> | null) ??
+          null,
+        workspaceConfig: run.assignment.workspaceConfig,
         sandboxTemplate: mergedTemplate
           ? Buffer.from(JSON.stringify(mergedTemplate), "utf-8").toString(
               "base64",

@@ -31,8 +31,24 @@ export default function SandboxPage() {
   if (!user || flagQ.isLoading || dataQ.isLoading) return <PageLoader />;
   if (!flagQ.data) return <Navigate to="/playgrounds" />;
   if (dataQ.data && dataQ.data.allowed === false) return <Navigate to="/404" />;
+  if (dataQ.isError || !dataQ.data) {
+    return (
+      <div className="bg-background flex h-screen w-full flex-col items-center justify-center gap-4 text-center p-6">
+        <p className="text-destructive font-semibold">Failed to load sandbox data</p>
+        <p className="text-muted-foreground text-sm">
+          {dataQ.error?.message ?? "An unexpected error occurred while loading the sandbox environment."}
+        </p>
+        <button
+          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-md px-4 py-2 text-sm font-medium"
+          onClick={() => void dataQ.refetch()}
+        >
+          Try again
+        </button>
+      </div>
+    );
+  }
 
-  const { submission, assignment, showActions, canEditTemplate } = dataQ.data!;
+  const { submission, assignment, showActions, canEditTemplate } = dataQ.data;
 
   const validTemplates = Object.keys(SANDBOX_TEMPLATES);
   if (!validTemplates.includes(template) && !assignmentId) {

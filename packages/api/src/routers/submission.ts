@@ -270,7 +270,10 @@ export const submissionRouter = createTRPCRouter({
         select: { submissionMode: true },
       });
 
-      if (assignment?.submissionMode === "SANDBOX") {
+      if (
+        assignment?.submissionMode === "SANDBOX" ||
+        assignment?.submissionMode === "WORKSPACE"
+      ) {
         const run = await ctx.db.submissionTestRun.create({
           data: {
             submissionId: submission.id,

@@ -11,7 +11,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdOutlineDelete } from "react-icons/md";
 import { RiWhatsappLine } from "react-icons/ri";
 import { FiRefreshCw, FiPlus, FiTerminal } from "react-icons/fi";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import Link from "next/link";
 
 import ContentPreview from "@/components/ContentPreview";
@@ -732,6 +732,15 @@ const WorkspaceSubmissionSection = ({ assignment }: { assignment: any }) => {
         </div>
       </div>
       <div className="flex flex-wrap gap-2">
+        <Button asChild>
+          <Link
+            href={`/playgrounds/sandbox?assignmentId=${assignment.id}`}
+            target="_blank"
+          >
+            <Play className="mr-2 h-4 w-4" />
+            Open in Playground
+          </Link>
+        </Button>
         <Button
           type="button"
           variant="outline"
@@ -743,7 +752,12 @@ const WorkspaceSubmissionSection = ({ assignment }: { assignment: any }) => {
         >
           Copy CLI setup
         </Button>
-        <Button type="button" onClick={openWorkspace} disabled={isOpening}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={openWorkspace}
+          disabled={isOpening}
+        >
           <FiTerminal className="mr-2 h-4 w-4" />
           {isOpening ? "Opening..." : "Open VS Code"}
         </Button>
