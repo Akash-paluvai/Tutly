@@ -7,12 +7,13 @@ const schema = z.object({
     .transform((s) => Number(s)),
   TEST_RUNNER_SECRET: z
     .string()
-    .min(16, "TEST_RUNNER_SECRET must be at least 16 chars"),
+    .min(16, "TEST_RUNNER_SECRET must be at least 16 chars")
+    .default("test-secret-at-least-16-chars-long"),
 
-  WEB_BASE_URL: z.string().url(),
+  WEB_BASE_URL: z.string().url().default("http://localhost:3000"),
 
   WORK_DIR: z.string().default("/tmp/tutly-runner"),
-  RUNTIME_DIR: z.string(),
+  RUNTIME_DIR: z.string().default("/tmp"),
 
   CONCURRENCY: z
     .string()
@@ -42,10 +43,15 @@ const schema = z.object({
   BROWSER_IMAGE: z
     .string()
     .default("ghcr.io/tutlylabs/tutly-browser-runner:latest"),
+  NODE_IMAGE: z
+    .string()
+    .default("tutly/node-runner:22"),
   // Host path the Docker daemon sees when bind-mounting WORK_DIR. Defaults to WORK_DIR.
   WORK_DIR_HOST: z.string().optional(),
 
-  DATABASE_URL: z.string(),
+  DATABASE_URL: z
+    .string()
+    .default("postgres://postgres:postgres@localhost:5432/tutly"),
 
   LOG_LEVEL: z
     .enum(["trace", "debug", "info", "warn", "error"])
