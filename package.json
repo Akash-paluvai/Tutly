@@ -34,6 +34,7 @@
     "@changesets/cli": "^2.31.0",
     "@turbo/gen": "^2.6.3",
     "@tutly/prettier-config": "workspace:*",
+    "dotenv-cli": "^11.0.0",
     "prettier": "3.5.3",
     "sherif": "^1.13.0",
     "turbo": "^2.6.3",

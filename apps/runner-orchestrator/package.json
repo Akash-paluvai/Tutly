@@ -9,6 +9,7 @@
     "dev": "tsx watch --env-file=.env src/index.ts",
     "start": "node --import tsx --env-file=.env src/index.ts",
     "lint": "eslint \"src/**/*.ts\" --max-warnings 0",
+    "test": "node --import tsx --test --test-concurrency=1 \"src/__tests__/**/*.test.ts\"",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@tutly/api": "workspace:*",
     "@tutly/eslint-config": "workspace:*",
     "@tutly/typescript-config": "workspace:*",
     "@types/express": "^5.0.6",
