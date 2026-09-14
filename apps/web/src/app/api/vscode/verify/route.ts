@@ -16,7 +16,11 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Missing token" }, { status: 400 });
     }
 
-    const secret = new TextEncoder().encode(process.env.TUTLY_VSCODE_SECRET);
+    const secret = new TextEncoder().encode(
+      process.env.TUTLY_VSCODE_SECRET ||
+        process.env.BETTER_AUTH_SECRET ||
+        "tutly-vscode-secret-dev-key-must-be-at-least-32-chars",
+    );
 
     try {
       const { payload } = await jwtVerify(token, secret);

@@ -22,13 +22,10 @@ export const vscodeRouter = createTRPCRouter({
       let hasRunCommand = false;
 
       if (input.config) {
-        const secret = process.env.TUTLY_VSCODE_SECRET;
-        if (!secret) {
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "VS Code config secret not configured",
-          });
-        }
+        const secret =
+          process.env.TUTLY_VSCODE_SECRET ||
+          process.env.BETTER_AUTH_SECRET ||
+          "tutly-vscode-secret-dev-key-must-be-at-least-32-chars";
 
         let decoded: {
           assignmentId?: string;
